@@ -295,6 +295,7 @@ Before handoff, challenge the report:
 - Does each category inference bind at least one high-weight theme, one branch difference, and one replacement-cost barrier?
 - Did you run duplicate-text checks on conclusion fields such as category prediction, product monetization, and new-product opportunity?
 - Does the default served or shared report entry point show the latest final artifact?
+- For long HTML reports, is there a left-side fine-grained reading index, and do all index anchors resolve?
 - If the user gives reusable feedback about the report method, was it added back to the methodology and skill before publishing updates?
 
 ## Output Requirements
@@ -310,6 +311,7 @@ A reusable report should include:
 - high-information comment metrics
 - single-product analysis
 - category insight
+- left-side reading index with sample, product, and category-insight anchors for long HTML reports
 - caveats and data-quality notes
 - generated JSON or other structured output when possible
 
