@@ -93,3 +93,4 @@ weak_evidence =
 
 首次用于新项目时，先让 Codex 输出候选样本池和纳入/剔除理由，不要直接生成正式报告。样本边界确认后，再进入全量评论扫描和深描。
 
+报告迭代时，把可复用反馈同步写回 `docs/comment-review-insight-methodology.md` 和 `skill/comment-review-insight/SKILL.md`，再提交更新。尤其要保留反模板化审查：类目推理、单品变现和新品机会不能只是替换产品名或类目名的重复句式。

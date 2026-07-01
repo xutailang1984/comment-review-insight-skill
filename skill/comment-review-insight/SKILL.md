@@ -277,6 +277,11 @@ Before handoff, challenge the report:
 - Are invalid timestamps excluded?
 - Are conclusions stronger than the evidence?
 - Does the report explain product opportunities rather than only listing comments?
+- Are category predictions, product monetization, and new-product opportunity statements product/category-specific instead of template text with only name substitution?
+- Does each category inference bind at least one high-weight theme, one branch difference, and one replacement-cost barrier?
+- Did you run duplicate-text checks on conclusion fields such as category prediction, product monetization, and new-product opportunity?
+- Does the default served or shared report entry point show the latest final artifact?
+- If the user gives reusable feedback about the report method, was it added back to the methodology and skill before publishing updates?
 
 ## Output Requirements
 
@@ -325,4 +330,6 @@ Keep these invariant:
 - Mixing product eligibility with evidence strength.
 - Reporting cross-category conclusions before all categories are analyzed.
 - Using English source descriptions in a Chinese report except for original quotes.
-
+- Generating category inference or monetization sections from repeated boilerplate.
+- Leaving a local or public report entry point on an older report after producing a final version.
+- Iterating the report format without updating the reusable methodology and skill.
