@@ -63,10 +63,11 @@ $comment-review-insight
 
 ```text
 high_value =
-  length >= 240
-  OR helpful >= 20
-  OR (rating <= 2 AND length >= 120)
-  OR (recent AND length >= 120 AND helpful >= 5)
+  information_score >= 45
+  OR (length >= 240 AND information_score >= 28)
+  OR (helpful >= 20 AND information_score >= 16)
+  OR (rating <= 2 AND length >= 120 AND information_score >= 28)
+  OR (recent AND length >= 120 AND helpful >= 5 AND information_score >= 28)
 ```
 
 默认弱证据产品规则：
@@ -75,10 +76,10 @@ high_value =
 weak_evidence =
   review_count < 500
   OR high_value_comments < 75
-  OR long_reviews_240_chars < 50
+  OR high_information_comments < 50
 ```
 
-阈值可按行业、数据规模和评论质量调整。
+信息量权重高于信息长度。信息量优先看具体机制、场景、因果、后果、对比、数字/价格/资源和明确诉求；阈值可按行业、数据规模和评论质量调整。
 
 ## 不包含
 

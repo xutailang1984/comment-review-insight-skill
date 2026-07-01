@@ -90,17 +90,19 @@ Default high-value comment rule:
 
 ```text
 high_value =
-  length >= 240
-  OR helpful >= 20
-  OR (rating <= 2 AND length >= 120)
-  OR (recent AND length >= 120 AND helpful >= 5)
+  information_score >= 45
+  OR (length >= 240 AND information_score >= 28)
+  OR (helpful >= 20 AND information_score >= 16)
+  OR (rating <= 2 AND length >= 120 AND information_score >= 28)
+  OR (recent AND length >= 120 AND helpful >= 5 AND information_score >= 28)
 ```
 
 Default value score:
 
 ```text
 value =
-  min(length, 800) / 35
+  information_score * 1.8
+  + min(length, 800) / 70
   + min(helpful, 300) * 2.4
   + length_bonus
   + helpful_bonus
@@ -108,16 +110,19 @@ value =
   + low_star_dense_bonus
 ```
 
+Information score should measure how much uncertainty the comment removes, not how long it is. Prefer signals such as concrete product mechanisms, scenario detail, cause/effect, explicit ask, consequence, comparison, numbers/prices/resources, and useful vocabulary diversity. Penalize repeated low-information emotion.
+
 Default bonuses:
 
-- length >= 240: +18
-- length >= 120: +8
+- length >= 240: +10
+- length >= 120: +4
 - helpful >= 20: +28
 - helpful >= 5: +10
 - recent: +18
 - rating <= 2 and length >= 120: +24
 
 Adjust thresholds to dataset scale, but preserve the principle: do not let many short low-information comments dominate a few high-information comments.
+Also do not let long low-information comments outrank shorter comments that clearly identify mechanisms, scenarios, and consequences.
 
 ### 4. Grade Product Evidence
 
@@ -129,7 +134,7 @@ Default weak-evidence rule:
 weak_evidence =
   review_count < 500
   OR high_value_comments < 75
-  OR long_reviews_240_chars < 50
+  OR high_information_comments < 50
 ```
 
 Default strong-evidence rule:
@@ -138,7 +143,7 @@ Default strong-evidence rule:
 strong_evidence =
   review_count >= 1000
   AND high_value_comments >= 200
-  AND long_reviews_240_chars >= 100
+  AND high_information_comments >= 120
 ```
 
 Everything else is medium evidence.
@@ -293,6 +298,7 @@ A reusable report should include:
 - excluded products with reasons
 - per-product evidence tier
 - high-value comment metrics
+- high-information comment metrics
 - single-product analysis
 - category insight
 - caveats and data-quality notes
@@ -303,6 +309,7 @@ A reusable report should include:
 Adjust these by domain:
 
 - review length thresholds
+- information-score thresholds and signal dictionary
 - helpful thresholds
 - recent window
 - weak-evidence thresholds
@@ -324,6 +331,7 @@ Keep these invariant:
 
 - Treating full-table keyword scan as close reading.
 - Letting short low-information comments dominate.
+- Treating comment length as information amount.
 - Deep-analyzing products with insufficient evidence.
 - Reusing historical writeups without labeling reuse.
 - Ignoring review time and current version drift.
