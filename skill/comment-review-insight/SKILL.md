@@ -124,6 +124,14 @@ Default bonuses:
 Adjust thresholds to dataset scale, but preserve the principle: do not let many short low-information comments dominate a few high-information comments.
 Also do not let long low-information comments outrank shorter comments that clearly identify mechanisms, scenarios, and consequences.
 
+Duplicate text control:
+
+- Build a normalized text fingerprint per product: lowercase, remove punctuation, collapse whitespace, then hash.
+- Exact normalized duplicates should only count once for theme weight, high-value comments, high-information comments, and representative samples.
+- Later duplicate rows may remain in raw review totals and duplicate-review counts, but must not inflate evidence strength.
+- In the rendered report, show the same original comment only once within the same product, even if it matches several themes.
+- A highly helpful duplicated text is not multiple independent evidence items; treat it as one signal with possible copy/spread behavior.
+
 ### 4. Grade Product Evidence
 
 Separate product eligibility from review evidence quality.
@@ -278,6 +286,7 @@ Before handoff, challenge the report:
 - Were weak-evidence products removed or caveated?
 - Are comment value and product evidence metrics visible?
 - Are high-value comments actually read and used?
+- Are duplicate or copied review texts deduplicated so highly helpful repeated text does not inflate evidence?
 - Are historical issues separated from current issues?
 - Are invalid timestamps excluded?
 - Are conclusions stronger than the evidence?
@@ -332,6 +341,7 @@ Keep these invariant:
 - Treating full-table keyword scan as close reading.
 - Letting short low-information comments dominate.
 - Treating comment length as information amount.
+- Letting duplicated or copied high-helpful text count as many independent evidence items.
 - Deep-analyzing products with insufficient evidence.
 - Reusing historical writeups without labeling reuse.
 - Ignoring review time and current version drift.
