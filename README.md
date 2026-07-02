@@ -16,6 +16,7 @@
 ```text
 重点关注 -> 分类提取 -> 分层处理
 产品价值 = 新体验 - 旧体验 - 替换成本
+raw comment -> comment value -> structured insight -> theme -> product judgment -> product action
 ```
 
 ## 内容
@@ -57,7 +58,11 @@ $comment-review-insight
 7. 剔除或降级弱证据样本
 8. 提取优势点、许愿墙、痛点池
 9. 逐条阅读高价值评论池
-10. 生成单品画像、类目洞察和对抗审查结论
+10. 抽取结构化 `comment_insight`
+11. 做时效复核
+12. 拆核心体验和循环体验
+13. 拆情绪价值和功能价值
+14. 生成单品画像、类目洞察和对抗审查结论
 
 默认高价值评论规则：
 
@@ -81,6 +86,23 @@ weak_evidence =
 
 信息量权重高于信息长度。信息量优先看具体机制、场景、因果、后果、对比、数字/价格/资源和明确诉求；阈值可按行业、数据规模和评论质量调整。同一产品内规范化重复文本只作为一条证据计权，高赞重复文本不能被当成多条独立需求样本。
 
+结构化评论洞察建议统一抽取：
+
+```text
+comment_insight =
+  original_signal
+  mechanism
+  player_context
+  emotional_value
+  functional_value
+  direct_need
+  latent_need
+  current_validity
+  product_action
+```
+
+单品研究必须区分核心体验和循环体验，也必须区分情绪价值和功能价值。核心体验回答玩家第一下为什么觉得爽，循环体验回答玩家为什么持续回来；情绪价值回答玩家为什么想来，功能价值回答玩家为什么能留下。
+
 ## 不包含
 
 这个仓库只包含方法论和 skill，不包含：
@@ -94,6 +116,14 @@ weak_evidence =
 
 首次用于新项目时，先让 Codex 输出候选样本池和纳入/剔除理由，不要直接生成正式报告。样本边界确认后，再进入全量评论扫描和深描。
 
-报告迭代时，把可复用反馈同步写回 `docs/comment-review-insight-methodology.md` 和 `skill/comment-review-insight/SKILL.md`，再提交更新。尤其要保留反模板化审查：类目推理、单品变现和新品机会不能只是替换产品名或类目名的重复句式。
+报告迭代时，把可复用反馈同步写回 `docs/comment-review-insight-methodology.md` 和 `skill/comment-review-insight/SKILL.md`，再提交更新。尤其要保留反模板化审查：类目推理、单品定位、单品变现和新品机会不能只是替换产品名或类目名的重复句式。
+
+硬性反模板规则：
+
+```text
+如果把产品名换成同类另一个产品名，句子仍基本成立，就判为模板化，需要重写。
+```
+
+合格的差异化结论至少要包含产品专属实体、旧体验参照和循环断点；类目推理至少要绑定一个高权重共同主题、一个分支差异、一个替换成本障碍和一个可执行产品方向。
 
 长篇 HTML 报告建议使用左侧细粒度阅读索引，至少覆盖样本描述、样本集合、剔除样本、研究方法、单品分组、单品锚点和类目洞察锚点，并在交付前检查所有锚点可达。

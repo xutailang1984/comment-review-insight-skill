@@ -23,6 +23,14 @@ Anchor analysis on:
 
 The goal is not to summarize comments. The goal is to identify user needs, pain points, validated strengths, unmet demand, and product opportunities.
 
+Use the evidence chain:
+
+```text
+raw comment -> comment value -> structured insight -> theme -> product judgment -> product action
+```
+
+The report is only useful when this chain is auditable. A keyword hit or a copied quote is not enough.
+
 ## When To Use
 
 Use this skill when the user asks to:
@@ -111,6 +119,8 @@ value =
 ```
 
 Information score should measure how much uncertainty the comment removes, not how long it is. Prefer signals such as concrete product mechanisms, scenario detail, cause/effect, explicit ask, consequence, comparison, numbers/prices/resources, and useful vocabulary diversity. Penalize repeated low-information emotion.
+
+Treat helpful votes as an amplifier, not standalone proof. High-helpful low-information text is mainly emotional spread; high-helpful high-information text can support product decisions.
 
 Default bonuses:
 
@@ -201,13 +211,34 @@ For each useful comment, extract:
 - whether the issue is current or historical
 - explicit need
 - latent need
+- emotional value: identity, fandom/resource preference, excitement, fear, achievement, social recognition, creator/community belonging
+- functional value: stability, fairness, onboarding, trading protection, economy clarity, asset recovery, moderation, matchmaking, room control
+- core experience signal: the smallest repeatable fun moment
+- loop experience signal: the resource, goal, social, progression, or economy system that makes players return
 - product implication
 
 Report excerpts can be shortened, but internal interpretation should be based on the full comment text when available.
 
+When turning high-value comments into evidence, use this structured object:
+
+```text
+comment_insight =
+  original_signal
+  mechanism
+  player_context
+  emotional_value
+  functional_value
+  direct_need
+  latent_need
+  current_validity
+  product_action
+```
+
+Major conclusions should be traceable to these structured insights, not only to theme keywords.
+
 ### 7. Add Lifecycle Analysis
 
-Split lifecycle by first and latest valid review timestamp:
+Use time mainly to judge current validity, not to create mechanical period summaries. Splitting lifecycle by first and latest valid review timestamp is useful only as a support:
 
 - early: first third
 - middle: second third
@@ -217,35 +248,40 @@ Also calculate natural recency, such as current-year comments.
 
 Use lifecycle to avoid treating historical launch problems as current product truth. Exclude or flag invalid timestamps; never let `1970-01-01` style dates drive conclusions.
 
+Classify high-value signals as:
+
+- current: still supported by recent comments
+- historical: strong in older comments but likely improved or no longer central
+- needs verification: meaningful but sparse, ambiguous, or dependent on product-side version knowledge
+
 ### 8. Build Single-Product Analysis
 
-Use this structure:
+Use this structure for formal deep analysis:
 
-1. 总体概述
-   - product outline
-   - target audience
-   - ranking/activity
-   - rating and review evidence
-   - evidence tier
-   - review count
-   - high-value comment count
-   - long review count
-   - median length
-   - low-star share
-   - helpful count
-   - recent review share
-   - lifecycle table
+1. 产品概览
+   - product outline, target audience, resource preference, differentiated positioning, direct evidence, positioning judgment
+   - separate direct evidence from inference; do not turn ecosystem clues into hard demographic facts
 
-2. 特点分析
-   - 表征提取: 优势点, 许愿墙, 痛点池
-   - 深入挖掘: 定位复盘, 痛点归因, 需求洞察, 优势放大
-   - high-value original comment samples
+2. 证据质量
+   - review count, unique text count, duplicate count, high-value reviews, high-information reviews, information density, theme frequency, time validity
 
-3. 预测推理
-   - gameplay inference
-   - monetization inference
-   - new-product opportunity
-   - replacement-cost judgment
+3. 体验模型
+   - core action: the smallest repeatable experience
+   - loop goal: the resource/progression/social/economy system that creates retention
+   - resource system and social structure
+
+4. 价值拆解
+   - emotional value: why players want to come
+   - functional value: why players can stay
+   - switching cost: assets, friends, mastery, habits, identity, content memory
+   - experience breakpoints: what breaks the value chain
+
+5. 信号洞察
+   - advantage signals, wish signals, pain signals, difference signals
+   - value samples, low-star samples, helpful high-information samples
+
+6. 机会推演
+   - gameplay opportunity, monetization boundary, new-product direction, risk judgment
 
 Every major claim should pair:
 
@@ -254,6 +290,14 @@ Every major claim should pair:
 - latent need
 - product implication
 - representative comment evidence
+
+Hard anti-template rule:
+
+```text
+If the statement still works after replacing the product name with another product in the same category, rewrite it.
+```
+
+Strong differentiated statements should include product-specific entities, old-experience references, and loop breakpoints.
 
 ### 9. Build Category Insight
 
@@ -276,6 +320,15 @@ Answer:
 - where a new product can differentiate
 - what replacement costs are hardest to overcome
 
+Each category inference must bind:
+
+- one high-weight common theme
+- one explicit branch difference
+- one switching-cost barrier
+- one actionable product direction
+
+If a category inference does not include branch difference, it is likely a template.
+
 ### 10. Adversarial Review
 
 Before handoff, challenge the report:
@@ -290,6 +343,11 @@ Before handoff, challenge the report:
 - Are historical issues separated from current issues?
 - Are invalid timestamps excluded?
 - Are conclusions stronger than the evidence?
+- Are major conclusions traceable to structured `comment_insight` objects instead of only keyword hits?
+- Does each product separate core experience from loop experience?
+- Does each product separate emotional value from functional value?
+- Does each positioning judgment include product-specific entities, old-experience references, and loop breakpoints?
+- Do positioning judgments, opportunity statements, and category inferences pass the "replace product/category name" anti-template test?
 - Does the report explain product opportunities rather than only listing comments?
 - Are category predictions, product monetization, and new-product opportunity statements product/category-specific instead of template text with only name substitution?
 - Does each category inference bind at least one high-weight theme, one branch difference, and one replacement-cost barrier?
@@ -337,6 +395,9 @@ Keep these invariant:
 - remove or caveat weak-evidence samples
 - use full source comments for close reading
 - distinguish direct need, latent need, and product opportunity
+- separate emotional value from functional value
+- separate core experience from loop experience
+- enforce the anti-template replacement test
 
 ## Common Failure Modes
 
@@ -351,5 +412,10 @@ Keep these invariant:
 - Reporting cross-category conclusions before all categories are analyzed.
 - Using English source descriptions in a Chinese report except for original quotes.
 - Generating category inference or monetization sections from repeated boilerplate.
+- Writing a positioning judgment that would still fit another product after only replacing the name.
+- Treating the product value formula as report copy instead of an internal decision compass.
+- Letting the output framework force conclusions instead of letting comment content drive the analysis.
+- Collapsing emotional value and functional value into one generic "user need".
+- Describing only the first-session core action while missing the long-term loop.
 - Leaving a local or public report entry point on an older report after producing a final version.
 - Iterating the report format without updating the reusable methodology and skill.
