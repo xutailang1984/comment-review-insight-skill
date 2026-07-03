@@ -404,6 +404,14 @@ For release handoff, verify:
 - anti-template and duplicate-text checks were run on product positioning, monetization, new-product opportunity, and category inference fields
 - reusable report-method changes were synced back to the local skill and public methodology docs
 
+For long HTML reports, secondary audit material should not dominate the main reading path:
+
+- keep formal samples, single-product research, and category insight in the main flow
+- make excluded products, high-review supplement pools, long boundary lists, and later-stage review sets collapsible by default
+- explain the distinction between weak-evidence exclusions and high-review supplement pools before showing their tables
+- render dense tables in a horizontal-scroll container instead of forcing cells to wrap
+- keep dense table cells single-line when possible, and consider a sticky first column for product names
+
 ## Portability Notes
 
 Adjust these by domain:
