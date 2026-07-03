@@ -378,6 +378,7 @@ Before handoff, challenge the report:
 A reusable report should include:
 
 - report version, such as `report_version: 1.0.0`
+- fixed release timestamp, such as `released_at`; do not treat a later generation time as the release time
 - sample description
 - methodology and thresholds
 - included products
@@ -399,6 +400,7 @@ For release handoff, verify:
 
 - default/shared entry point opens the confirmed latest version
 - versioned HTML and structured data were written
+- the release timestamp is visible and machine-readable
 - formal samples, weak-evidence exclusions, and supplement pool counts are visible
 - all reading-index anchors resolve
 - anti-template and duplicate-text checks were run on product positioning, monetization, new-product opportunity, and category inference fields
