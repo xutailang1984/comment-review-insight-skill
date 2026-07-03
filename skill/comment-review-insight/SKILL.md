@@ -7,6 +7,8 @@ description: Use for product-review or app-store-comment analysis where the goal
 
 This skill turns large comment/review datasets into product-research insight. It is designed for competitor review mining, app-store review analysis, game product opportunity research, and any task where product decisions depend on user comments.
 
+Current methodology version: `1.0.0`.
+
 ## Operating Principle
 
 Use the user's default method:
@@ -74,6 +76,13 @@ Create a candidate table with:
 - review count
 
 Do not bury inclusion decisions inside the final narrative.
+
+When excluding products, keep two explicit pools:
+
+- current-candidate weak evidence: products already considered for the active taxonomy, but removed because review volume, high-value comments, or high-information comments are insufficient
+- high-review supplement pool: products from a wider ranking window with strong activity or review volume, but not included because they fail the current business-model, IAP, multiplayer, or category-boundary rules
+
+The supplement pool is not part of the formal category statistics. It is a future review set for paid comparisons, multiplayer verification, monetization review, or category-boundary review.
 
 ### 2. Read Reviews From Source
 
@@ -171,6 +180,14 @@ Handling:
 - Strong: eligible for full single-product deep analysis.
 - Medium: keep, but qualify conclusions.
 - Weak: remove from formal deep analysis or keep only as branch supplement with explicit caveat.
+
+For excluded or supplement products, record:
+
+- rank or activity proxy
+- scanned review count and storefront review count when available
+- price, IAP/addon signal, multiplayer/network signal, and genre/category evidence
+- exclusion reason
+- next action, such as paid comparison, live multiplayer verification, monetization review, category-boundary review, or deferred second-stage research
 
 ### 5. Extract Themes
 
@@ -360,10 +377,12 @@ Before handoff, challenge the report:
 
 A reusable report should include:
 
+- report version, such as `report_version: 1.0.0`
 - sample description
 - methodology and thresholds
 - included products
 - excluded products with reasons
+- high-review supplement pool when a wider ranking window exists
 - per-product evidence tier
 - high-value comment metrics
 - high-information comment metrics
@@ -372,8 +391,18 @@ A reusable report should include:
 - left-side reading index with sample, product, and category-insight anchors for long HTML reports
 - caveats and data-quality notes
 - generated JSON or other structured output when possible
+- frozen release copy of the confirmed version, so future iterations do not overwrite the only comparable milestone
 
 Sample description should work as a reader map, not as a repeated process log. Once the sample boundary and filters are locked, mention them only once or in methodology; spend the overview on category differences, why the sample matters, what each category validates, and how the reader should interpret product opportunity. Avoid repeating phrases such as the same business-model filter in every category card.
+
+For release handoff, verify:
+
+- default/shared entry point opens the confirmed latest version
+- versioned HTML and structured data were written
+- formal samples, weak-evidence exclusions, and supplement pool counts are visible
+- all reading-index anchors resolve
+- anti-template and duplicate-text checks were run on product positioning, monetization, new-product opportunity, and category inference fields
+- reusable report-method changes were synced back to the local skill and public methodology docs
 
 ## Portability Notes
 
@@ -422,3 +451,5 @@ Keep these invariant:
 - Letting sample overview repeat methodology or fixed filters instead of explaining category differences and research purpose.
 - Leaving a local or public report entry point on an older report after producing a final version.
 - Iterating the report format without updating the reusable methodology and skill.
+- Treating excluded products as discarded noise instead of preserving them as a future supplement pool when they have strong ranking or review-volume evidence.
+- Publishing a final report without a versioned frozen copy, making later comparisons impossible.
