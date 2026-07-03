@@ -373,6 +373,8 @@ A reusable report should include:
 - caveats and data-quality notes
 - generated JSON or other structured output when possible
 
+Sample description should work as a reader map, not as a repeated process log. Once the sample boundary and filters are locked, mention them only once or in methodology; spend the overview on category differences, why the sample matters, what each category validates, and how the reader should interpret product opportunity. Avoid repeating phrases such as the same business-model filter in every category card.
+
 ## Portability Notes
 
 Adjust these by domain:
@@ -417,5 +419,6 @@ Keep these invariant:
 - Letting the output framework force conclusions instead of letting comment content drive the analysis.
 - Collapsing emotional value and functional value into one generic "user need".
 - Describing only the first-session core action while missing the long-term loop.
+- Letting sample overview repeat methodology or fixed filters instead of explaining category differences and research purpose.
 - Leaving a local or public report entry point on an older report after producing a final version.
 - Iterating the report format without updating the reusable methodology and skill.
